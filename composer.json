@@ -1,0 +1,16 @@
+{
+    "name": "braankoo/laravel-eloquent-snapshot",
+    "description": "Laravel Eloquent Snapshot is a lightweight package that enables automatic or manual snapshots of Eloquent model states. Ideal for audit trails, change tracking, or rollback functionality, this package stores historical records of model data in a flexible and efficient way.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Branko Dragovic"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "illuminate/support": "^13.0@dev",
+        "illuminate/database": "^13.0@dev"
+    }
+}
