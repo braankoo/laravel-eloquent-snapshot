@@ -1,52 +1,73 @@
-# Very short description of the package
+# Eloquent Snapshot
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/braankoo/laravel-eloquent-snapshot.svg?style=flat-square)](https://packagist.org/packages/braankoo/laravel-eloquent-snapshot)
-[![Total Downloads](https://img.shields.io/packagist/dt/braankoo/laravel-eloquent-snapshot.svg?style=flat-square)](https://packagist.org/packages/braankoo/laravel-eloquent-snapshot)
-![GitHub Actions](https://github.com/braankoo/laravel-eloquent-snapshot/actions/workflows/main.yml/badge.svg)
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Eloquent Snapshot is a Laravel package that provides functionality for storing and restoring snapshots of Eloquent models. This is useful for tracking changes, creating backups, or implementing undo functionality in your application.
 
 ## Installation
 
-You can install the package via composer:
+Install the package via Composer:
 
 ```bash
-composer require braankoo/laravel-eloquent-snapshot
+composer require braankoo/eloquent-snapshot
 ```
 
 ## Usage
 
+### Storing Snapshots
+
+Use the `EloquentSnapshotStoreService` to store snapshots of Eloquent models:
+
 ```php
-// Usage description here
+
+use Braankoo\EloquentSnapshot\EloquentSnapshotFacade as Snapshot;
+
+Snapshot::create($model);
+Snapshot::create([$model1, $model2]);
+Snapshot::create(collect([$model1, $model2]));
 ```
 
-### Testing
+### Restoring Snapshots
 
-```bash
-composer test
+Use the `EloquentSnapshotRestoreService` to restore snapshots of Eloquent models:
+
+```php
+
+use Braankoo\EloquentSnapshot\EloquentSnapshotFacade as Snapshot;
+use Braankoo\EloquentSnapshot\EloquentSnapshotFilter;
+
+Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->first());
+Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->latest());
 ```
 
-### Changelog
+### Filtering Snapshots
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Snapshots can be filtered using the `EloquentSnapshotFilter`:
+
+```php
+use Braankoo\EloquentSnapshot\EloquentSnapshotFilter;
+
+$filter = new EloquentSnapshotFilter([
+    'created_at' => ['>=', '2023-01-01'],
+]);
+
+$service->restore($model, $filter);
+```
+
+## Features
+
+- Store snapshots of Eloquent models, arrays, or collections.
+- Restore snapshots with optional filtering.
+- Transactional operations for data integrity.
+- Supports chunked inserts for large datasets.
+
+## Configuration
+
+No additional configuration is required. The package uses Laravel's default database connection.
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email braankoo@gmail.com instead of using the issue tracker.
-
-## Credits
-
--   [Branko Dragovic](https://github.com/braankoo)
--   [All Contributors](../../contributors)
+Contributions are welcome! Please submit a pull request or open an issue for any bugs or feature requests.
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
-
-## Laravel Package Boilerplate
-
-This package was generated using the [Laravel Package Boilerplate](https://laravelpackageboilerplate.com).
+This package is open-source and licensed under the MIT License.
+```
