@@ -56,6 +56,11 @@ Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->before(Carbon:
 ## Configuration
 
 No additional configuration is required. The package uses Laravel's default database connection.
+All you have to do is run the migrations to create the necessary tables:
+
+```bash
+php artisan migrate
+```
 
 ## Contributing
 
