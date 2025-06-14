@@ -1,10 +1,10 @@
 <?php
 
-namespace Braankoo\LaravelEloquentSnapshot;
+namespace Braankoo\EloquentSnapshot;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelEloquentSnapshotServiceProvider extends ServiceProvider
+class EloquentSnapshotServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -21,8 +21,10 @@ class LaravelEloquentSnapshotServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('laravel-eloquent-snapshot.php'),
             ], 'config');
 
-            // Registering package commands.
-            // $this->commands([]);
+            $this->commands([
+                Console\Command\Restore::class,
+                Console\Command\Purge::class,
+            ]);
         }
     }
 
@@ -35,8 +37,8 @@ class LaravelEloquentSnapshotServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-eloquent-snapshot');
 
         // Register the main class to use with the facade
-        $this->app->singleton('laravel-eloquent-snapshot', function () {
-            return new LaravelEloquentSnapshot;
+        $this->app->singleton('eloquent-snapshot', function ($app) {
+            return $app->make(EloquentSnapshot::class);
         });
     }
 }

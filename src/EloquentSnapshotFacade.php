@@ -1,13 +1,13 @@
 <?php
 
-namespace Braankoo\LaravelEloquentSnapshot;
+namespace Braankoo\EloquentSnapshot;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Braankoo\LaravelEloquentSnapshot\Skeleton\SkeletonClass
+ * @see \Braankoo\EloquentSnapshot\Skeleton\SkeletonClass
  */
-class LaravelEloquentSnapshotFacade extends Facade
+class EloquentSnapshotFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class LaravelEloquentSnapshotFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-eloquent-snapshot';
+        return 'eloquent-snapshot';
     }
 }
