@@ -33,25 +33,19 @@ Use the `EloquentSnapshotRestoreService` to restore snapshots of Eloquent models
 
 use Braankoo\EloquentSnapshot\EloquentSnapshotFacade as Snapshot;
 use Braankoo\EloquentSnapshot\EloquentSnapshotFilter;
-
+Snapshot::restore(Model::first()); // Restore the last model snapshot
 Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->first());
 Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->latest());
 ```
-
 ### Filtering Snapshots
 
-Snapshots can be filtered using the `EloquentSnapshotFilter`:
+You can filter snapshots using the `EloquentSnapshotFilter` class:
 
 ```php
 use Braankoo\EloquentSnapshot\EloquentSnapshotFilter;
-
-$filter = new EloquentSnapshotFilter([
-    'created_at' => ['>=', '2023-01-01'],
-]);
-
-$service->restore($model, $filter);
+use Braankoo\EloquentSnapshot\EloquentSnapshotFacade as Snapshot;
+Snapshot::restore(Model::first(), (new EloquentSnapshotFilter())->before(Carbon::now()->subDays(7))->after(Carbon::now()->subDays(30))->first());
 ```
-
 ## Features
 
 - Store snapshots of Eloquent models, arrays, or collections.
